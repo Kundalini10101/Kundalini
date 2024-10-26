@@ -1,0 +1,94 @@
+body {
+    background-color: black;
+    color: #00FF00; /* Matrix green */
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+}
+
+/* Slash-styled header with Matrix theme */
+.slash-header {
+    color: #00FF00;
+    font-size: 0.7em; /* Increased by 40% */
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    white-space: pre;
+    text-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+}
+
+/* Image container styling */
+.home-image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.home-image-container img {
+    max-width: 80%;
+    height: auto;
+    border: 2px solid #00FF00;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+}
+
+/* Terminal output styling */
+#output {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00FF00;
+    padding: 15px;
+    margin: 20px auto;
+    width: 80%;
+    height: 200px;
+    overflow-y: scroll;
+    font-size: 1.1em;
+}
+
+/* Input styling */
+#input-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.input-prompt {
+    color: #00FF00;
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+#input {
+    background-color: black;
+    color: #00FF00;
+    border: 2px solid #00FF00;
+    padding: 10px;
+    width: 50%;
+    font-size: 1em;
+    outline: none;
+    text-align: left;
+}
+
+/* Animation for the Matrix-style text effect */
+@keyframes matrix-fade {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+#output p, .input-prompt, #input {
+    animation: matrix-fade 2s infinite;
+}
+
+/* Canvas Styling */
+canvas {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Behind other elements */
+    width: 100%;
+    height: 100%;
+}
