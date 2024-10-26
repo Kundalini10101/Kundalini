@@ -20,8 +20,6 @@
         Your browser does not support the audio element.
     </audio>
 
-    <canvas id="matrixCanvas"></canvas>
-
     <pre class="slash-header">
         
 --  ██╗xx██╗██╗xxx██╗███╗xxx██╗██████╗xx█████╗x██╗xxxxx██╗███╗xxx██╗██╗xxxx██╗███████╗xxxxx█████╗xxxxx██████╗x███████╗x█████╗x██╗xxxxxxxxxx██████╗x██╗██████╗x██╗xxxxx
@@ -34,7 +32,7 @@
 
     </pre>
 
-    <div class="home-image-container">
+        <div class="home-image-container">
         <img src="images/home-image.jpeg" alt="Surveillance Warning Image">
     </div>
  	
@@ -43,7 +41,7 @@
     </div>
     
     <div id="output">
-        <p>Welcome to The Resistance. The time has come to rise up and take a stand against the forces of evil. Together, we will overcome the darkness and reclaim what is rightfully ours. Those who believe, those who are brave enough to follow, will be rewarded beyond imagination. Your strength and willpower are needed now more than ever. This is your moment. Type your commands below and become part of the movement that will change the world forever.</p>
+        <p>Welcome to The Resistance...</p>
     </div>
     
     <div id="input-container">
@@ -52,6 +50,14 @@
     </div>
 
     <script src="script.js"></script>
-    <script src="matrix.js"></script> <!-- JS file for matrix animation -->
+    <script src="matrix.js"></script>
+
+    <!-- Hide loading screen after page loads -->
+    <script>
+        window.addEventListener('load', function() {
+            // Make sure to hide the loading screen
+            document.getElementById('loading-screen').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
