@@ -1,20 +1,26 @@
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
 
-// Set canvas size
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// Function to initialize the canvas size and drops
+function initializeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Calculate columns based on the new width
+    const columns = Math.floor(canvas.width / fontSize); 
+    for (let x = 0; x < columns; x++) {
+        drops[x] = Math.random() * canvas.height; // Start drops at random positions
+    }
+}
 
 // Characters for binary code
 const binaryChars = '01';
 const fontSize = 16;
-const columns = canvas.width / fontSize; 
+const columns = Math.floor(canvas.width / fontSize); 
 const drops = [];
 
-// Initialize drops
-for (let x = 0; x < columns; x++) {
-    drops[x] = 1;
-}
+// Initialize the canvas and drops
+initializeCanvas();
 
 // Draw the characters
 function drawMatrix() {
@@ -30,7 +36,7 @@ function drawMatrix() {
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
+            drops[i] = 0; // Reset drop
         }
         drops[i]++;
     }
@@ -38,3 +44,9 @@ function drawMatrix() {
 
 // Update the canvas every 50 milliseconds
 setInterval(drawMatrix, 50);
+
+// Listen for window resize events
+window.addEventListener('resize', () => {
+    initializeCanvas(); // Reinitialize canvas size and drops
+});
+
