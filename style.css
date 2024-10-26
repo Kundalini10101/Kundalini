@@ -1,35 +1,94 @@
-const input = document.getElementById('input');
-const output = document.getElementById('output');
+body {
+    background-color: black;
+    color: #00FF00; /* Matrix green */
+    font-family: 'Courier New', monospace;
+    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
+}
 
-const commands = {
-    help: () => "Available commands: help, clear, echo, about, date, time...",
-    clear: () => { output.innerHTML = ""; },
-    echo: (args) => args.join(" "),
-    about: () => `
-        I am Kundalini, and I am here with a purpose...
-    `,
-    date: () => new Date().toLocaleDateString(),
-    time: () => new Date().toLocaleTimeString(),
-    joke: () => "Why did the scarecrow win an award? Because he was outstanding in his field!",
-    greet: (args) => args.length > 0 ? `Hello, ${args.join(" ")}!` : "Hello!",
-    rollDice: () => `You rolled a ${Math.floor(Math.random() * 6) + 1}!`,
-    flipCoin: () => Math.random() < 0.5 ? "Heads!" : "Tails!",
-};
+/* Slash-styled header with Matrix theme */
+.slash-header {
+    color: #00FF00;
+    font-size: 0.7em; /* Increased by 40% */
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    white-space: pre;
+    text-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+}
 
-input.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        const command = input.value.trim();
-        const args = command.split(' ').slice(1);
-        const response = handleCommand(command.split(' ')[0], args);
-        output.innerHTML += `> ${command}<br>${response}<br>`;
-        input.value = '';
+/* Image container styling */
+.home-image-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.home-image-container img {
+    max-width: 80%;
+    height: auto;
+    border: 2px solid #00FF00;
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+}
+
+/* Terminal output styling */
+#output {
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #00FF00;
+    padding: 15px;
+    margin: 20px auto;
+    width: 80%;
+    height: 200px;
+    overflow-y: scroll;
+    font-size: 1.1em;
+}
+
+/* Input styling */
+#input-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.input-prompt {
+    color: #00FF00;
+    margin-right: 5px;
+    font-size: 1.2em;
+}
+
+#input {
+    background-color: black;
+    color: #00FF00;
+    border: 2px solid #00FF00;
+    padding: 10px;
+    width: 50%;
+    font-size: 1em;
+    outline: none;
+    text-align: left;
+}
+
+/* Animation for the Matrix-style text effect */
+@keyframes matrix-fade {
+    0%, 100% {
+        opacity: 1;
     }
-});
-
-function handleCommand(command, args) {
-    if (commands[command]) {
-        return typeof commands[command] === 'function' ? commands[command](args) : commands[command];
-    } else {
-        return `Command not found: ${command}`;
+    50% {
+        opacity: 0.5;
     }
+}
+
+#output p, .input-prompt, #input {
+    animation: matrix-fade 2s infinite;
+}
+
+/* Canvas Styling */
+canvas {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Behind other elements */
+    width: 100%;
+    height: 100%;
 }
