@@ -8,7 +8,7 @@ canvas.height = window.innerHeight;
 // Characters for binary code
 const binaryChars = '01';
 const fontSize = 16;
-const columns = canvas.width / fontSize;
+const columns = canvas.width / fontSize; 
 const drops = [];
 
 // Initialize drops
@@ -18,8 +18,10 @@ for (let x = 0; x < columns; x++) {
 
 // Draw the characters
 function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; 
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Alternate between white and green for color effect
     ctx.fillStyle = Math.random() > 0.5 ? '#FFFFFF' : '#00FF00';
     ctx.font = `${fontSize}px monospace`;
 
@@ -32,11 +34,6 @@ function drawMatrix() {
         }
         drops[i]++;
     }
-}
-
-// Update the canvas every 50 milliseconds
-setInterval(drawMatrix, 50);
-
 }
 
 // Update the canvas every 50 milliseconds
