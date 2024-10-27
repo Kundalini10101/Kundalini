@@ -1,52 +1,65 @@
 const canvas = document.getElementById('matrixCanvas');
 const ctx = canvas.getContext('2d');
 
-// Function to initialize the canvas size and drops
+const fontSize = 16;
+const drops = [];
+let columns = 0;
+let matrixSpeed = 50; // Speed of matrix animation
+
+// Initialize canvas
 function initializeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
 
-    // Calculate columns based on the new width
-    const columns = Math.floor(canvas.width / fontSize); 
-    for (let x = 0; x < columns; x++) {
-        drops[x] = Math.random() * canvas.height; // Start drops at random positions
+    for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * canvas.height;
     }
 }
 
-// Characters for binary code
-const binaryChars = '01';
-const fontSize = 16;
-const columns = Math.floor(canvas.width / fontSize); 
-const drops = [];
-
-// Initialize the canvas and drops
-initializeCanvas();
-
-// Draw the characters
+// Draw the matrix code
 function drawMatrix() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; 
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Alternate between white and green for color effect
-    ctx.fillStyle = Math.random() > 0.5 ? '#FFFFFF' : '#00FF00';
     ctx.font = `${fontSize}px monospace`;
-
     for (let i = 0; i < drops.length; i++) {
-        const text = binaryChars.charAt(Math.floor(Math.random() * binaryChars.length));
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        const char = '01'[Math.floor(Math.random() * 2)];
 
+        const randomColor = Math.random();
+        if (randomColor <= 0.65) {
+            const purpleShades = ['#A020F0', '#BA55D3', '#9370DB', '#DDA0DD'];
+            ctx.fillStyle = purpleShades[Math.floor(Math.random() * purpleShades.length)];
+        } else {
+            ctx.fillStyle = Math.random() > 0.5 ? '#FFFFFF' : '#00FF00';
+        }
+
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+        
         if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0; // Reset drop
+            drops[i] = 0;
         }
         drops[i]++;
     }
 }
 
-// Update the canvas every 50 milliseconds
-setInterval(drawMatrix, 50);
+// Update matrix animation speed dynamically
+let matrixInterval = setInterval(drawMatrix, matrixSpeed);
 
-// Listen for window resize events
-window.addEventListener('resize', () => {
-    initializeCanvas(); // Reinitialize canvas size and drops
-});
+commands.speedup = () => {
+    matrixSpeed = Math.max(10, matrixSpeed - 10);
+    clearInterval(matrixInterval);
+    matrixInterval = setInterval(drawMatrix, matrixSpeed);
+    return "Matrix speed increased!";
+};
 
+commands.slowdown = () => {
+    matrixSpeed = Math.min(200, matrixSpeed + 10);
+    clearInterval(matrixInterval);
+    matrixInterval = setInterval(drawMatrix, matrixSpeed);
+    return "Matrix speed decreased!";
+};
+
+// Start matrix and adjust for screen size
+window.addEventListener('resize', initializeCanvas);
+initializeCanvas();
