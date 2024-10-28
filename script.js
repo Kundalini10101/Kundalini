@@ -70,14 +70,31 @@ function speakText(text) {
     window.speechSynthesis.speak(speech);
 }
 
+// Add command aliases for case-insensitive matching
+const commandAliases = {
+    randomnumber: 'randomNumber',
+    songlyrics: 'songLyrics',
+    moviequote: 'movieQuote',
+    showerthought: 'showerThought',
+    inspireme: 'inspireMe',
+    funfact: 'funFact',
+    yesorno: 'yesOrNo',
+    successkid: 'successKid',
+    confusednickyoung: 'confusedNickYoung',
+    mockingspongebob: 'mockingSpongebob',
+    rolldice: 'rollDice',
+    flipcoin: 'flipCoin',
+    tonguetwister: 'tongueTwister'
+};
+
 // Handle user input for commands
 input.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        const command = input.value.trim();
+        const command = input.value.trim().toLowerCase(); // Normalize to lowercase
         if (!command) return;
 
         const args = command.split(' ').slice(1);
-        const fullCommand = command.split(' ')[0].toLowerCase();
+        const fullCommand = command.split(' ')[0];
         const response = handleCommand(fullCommand, args);
         
         appendToOutput(`> ${command}<br>${response}`);
@@ -104,8 +121,9 @@ input.addEventListener('keydown', function(event) {
 
 // Handle various commands
 function handleCommand(command, args) {
-    if (commands[command]) {
-        return typeof commands[command] === 'function' ? commands[command](args) : commands[command];
+    const normalizedCommand = commandAliases[command] || command; // Map command aliases
+    if (commands[normalizedCommand]) {
+        return typeof commands[normalizedCommand] === 'function' ? commands[normalizedCommand](args) : commands[normalizedCommand];
     } else {
         return `Command not found: ${command}. Type 'help' to see the list of available commands.`;
     }
