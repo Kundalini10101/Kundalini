@@ -61,12 +61,24 @@ function appendToOutput(content) {
     output.scrollTop = output.scrollHeight; // Auto-scroll to bottom
 }
 
-// Adjust voice parameters for more attractive, feminine tone
+// Detect if user is on a mobile device
+function isMobileDevice() {
+    return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+// Adjust voice parameters for more attractive, feminine tone, and normalize for mobile/desktop
 function speakText(text) {
     const speech = new SpeechSynthesisUtterance(text);
     speech.lang = 'en-US'; // Set the language
-    speech.pitch = 1.5; // Increase pitch for more feminine tone
-    speech.rate = 1.2; // Increase rate for a slightly faster, more attractive delivery
+    speech.pitch = 1.5; // High pitch for feminine tone
+
+    // Adjust speech rate based on device
+    if (isMobileDevice()) {
+        speech.rate = 1.0; // Slower on mobile
+    } else {
+        speech.rate = 1.2; // Slightly faster on desktop
+    }
+
     window.speechSynthesis.speak(speech);
 }
 
