@@ -63,3 +63,4 @@ commands.slowdown = () => {
 // Start matrix and adjust for screen size
 window.addEventListener('resize', initializeCanvas);
 initializeCanvas();
+
