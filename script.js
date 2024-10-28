@@ -66,7 +66,7 @@ function isMobileDevice() {
     return /Mobi|Android/i.test(navigator.userAgent);
 }
 
-// Adjust voice parameters for more attractive, feminine tone, and normalize for mobile/desktop
+// Adjust voice parameters for more attractive, feminine tone, and slow down speech for both mobile and desktop
 function speakText(text) {
     const speech = new SpeechSynthesisUtterance(text);
     speech.lang = 'en-US'; // Set the language
@@ -74,9 +74,9 @@ function speakText(text) {
 
     // Adjust speech rate based on device
     if (isMobileDevice()) {
-        speech.rate = 1.0; // Slower on mobile
+        speech.rate = 0.9; // Slower on mobile
     } else {
-        speech.rate = 1.2; // Slightly faster on desktop
+        speech.rate = 1.0; // Slower, but natural on desktop
     }
 
     window.speechSynthesis.speak(speech);
@@ -96,7 +96,37 @@ const commandAliases = {
     mockingspongebob: 'mockingSpongebob',
     rolldice: 'rollDice',
     flipcoin: 'flipCoin',
-    tonguetwister: 'tongueTwister'
+    tonguetwister: 'tongueTwister',
+    help: 'help',
+    clear: 'clear',
+    echo: 'echo',
+    about: 'about',
+    date: 'date',
+    time: 'time',
+    joke: 'joke',
+    greet: 'greet',
+    magic8ball: 'magic8ball',
+    weather: 'weather',
+    trivia: 'trivia',
+    fortune: 'fortune',
+    riddle: 'riddle',
+    asciiart: 'asciiart',
+    compliments: 'compliments',
+    palindrome: 'palindrome',
+    math: 'math',
+    marketcap: 'marketcap',
+    meme: 'meme',
+    doge: 'doge',
+    motivate: 'motivate',
+    reverse: 'reverse',
+    define: 'define',
+    translate: 'translate',
+    insult: 'insult',
+    spoon: 'spoon',
+    neo: 'neo',
+    speedup: 'speedup',
+    slowdown: 'slowdown',
+    togglelight: 'togglelight'
 };
 
 // Handle user input for commands
@@ -141,7 +171,7 @@ function handleCommand(command, args) {
     }
 }
 
-// Full list of 40 commands with 3 responses each
+// Full list of 43 commands with 3 responses each
 const commands = {
     help: () => [
         "Available commands: help, clear, echo, about, date, time, joke, greet, magic8ball, weather, trivia, fortune, riddle, asciiart, compliments, palindrome, tongueTwister, math, marketcap, meme, doge, successKid, confusedNickYoung, mockingSpongebob, rollDice, flipCoin, motivate, inspireMe, funFact, yesOrNo, reverse, define, songLyrics, randomNumber, translate, movieQuote, showerThought, insult, spoon, neo, speedup, slowdown, togglelight",
